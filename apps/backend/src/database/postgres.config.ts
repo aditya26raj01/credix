@@ -49,7 +49,7 @@ export function buildPostgresTypeOrmConfig(
     type: 'postgres',
     url: databaseUrl,
     autoLoadEntities: true,
-    synchronize: false,
+    synchronize: process.env.NODE_ENV === 'development',
     ssl: shouldUseSsl ? { rejectUnauthorized } : false,
     logging: process.env.NODE_ENV === 'development',
   };
