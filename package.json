@@ -9,7 +9,10 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "clean": "turbo run clean --continue"
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "turbo run clean --continue",
+    "prepare": "husky"
   },
   "engines": {
     "node": ">=20.0.0",
@@ -17,6 +20,22 @@
   },
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.5.3",
     "turbo": "^2.9.6"
+  },
+  "lint-staged": {
+    "*.{js,cjs,mjs,ts,tsx,json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "apps/backend/**/*.{ts,js,mjs}": [
+      "pnpm --filter backend lint"
+    ],
+    "apps/mobile/**/*.{ts,tsx,js}": [
+      "pnpm --filter mobile lint"
+    ]
   }
 }

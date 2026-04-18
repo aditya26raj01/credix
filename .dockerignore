@@ -1,0 +1,10 @@
+node_modules
+.pnpm-store
+.git
+.github
+.turbo
+**/node_modules
+**/.expo
+**/dist
+**/coverage
+README.md
