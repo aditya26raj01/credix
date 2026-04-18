@@ -1,0 +1,25 @@
+node_modules
+pnpm-debug.log*
+*.log
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Turbo / build caches
+.turbo
+dist
+coverage
+
+# Expo / React Native
+.expo
+.expo-shared
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+
+# OS / editor
+.DS_Store
+Thumbs.db
