@@ -4,10 +4,12 @@ import {
   Entity,
   Index,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserSessionEntity } from './user-session.entity';
+import { GoogleGmailConnectionEntity } from './google-gmail-connection.entity';
 
 export enum UserRole {
   USER = 'user',
@@ -41,6 +43,12 @@ export class UserEntity {
 
   @OneToMany(() => UserSessionEntity, (session) => session.user)
   sessions!: UserSessionEntity[];
+
+  @OneToOne(
+    () => GoogleGmailConnectionEntity,
+    (gmailConnection) => gmailConnection.user,
+  )
+  gmailConnection!: GoogleGmailConnectionEntity | null;
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt!: Date;

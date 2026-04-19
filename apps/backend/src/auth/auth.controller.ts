@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { AuthUserResponse, SessionTokensResponse } from './auth.service';
 import { GoogleExchangeDto } from './dto/google-exchange.dto';
+import { GoogleGmailConnectDto } from './dto/google-gmail-connect.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
@@ -34,6 +35,33 @@ export class AuthController {
   @Get('me')
   getMe(@Req() req: AuthenticatedRequest): Promise<AuthUserResponse> {
     return this.authService.getMe(req.user!.sub);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('google/gmail/connection')
+  getGoogleGmailConnection(@Req() req: AuthenticatedRequest) {
+    return this.authService.getGoogleGmailConnection(req.user!.sub);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('google/gmail/connect')
+  connectGoogleGmail(
+    @Req() req: AuthenticatedRequest,
+    @Body() dto: GoogleGmailConnectDto,
+  ) {
+    return this.authService.connectGoogleGmail(req.user!.sub, dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('google/gmail/disconnect')
+  disconnectGoogleGmail(@Req() req: AuthenticatedRequest) {
+    return this.authService.disconnectGoogleGmail(req.user!.sub);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('google/gmail/sync-now')
+  syncGoogleGmailNow(@Req() req: AuthenticatedRequest) {
+    return this.authService.syncGoogleGmailNow(req.user!.sub);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

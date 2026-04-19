@@ -5,6 +5,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UserEntity } from './entities/user.entity';
 import { UserSessionEntity } from './entities/user-session.entity';
+import { GoogleGmailConnectionEntity } from './entities/google-gmail-connection.entity';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { isDatabaseEnabled } from '../database/database.module';
@@ -26,7 +27,11 @@ export class AuthModule {
     return {
       module: AuthModule,
       imports: [
-        TypeOrmModule.forFeature([UserEntity, UserSessionEntity]),
+        TypeOrmModule.forFeature([
+          UserEntity,
+          UserSessionEntity,
+          GoogleGmailConnectionEntity,
+        ]),
         JwtModule.register({}),
       ],
       controllers: [AuthController],
